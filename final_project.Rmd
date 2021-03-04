@@ -2,8 +2,10 @@
 title: "final_project"
 author: "Anisha Babu"
 date: "2/21/2021"
-output: html_document
-editor_options: 
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
   chunk_output_type: console
 ---
 
@@ -61,6 +63,13 @@ ggplot() +
 # CONSIDER: may change to a dot density map
 
 
+#It would be great to show the raw data in an interactive format using {reactable} we learned during class.
+
+#Does tree density refer to the number of trees per square mile, or just the number of trees in the neighborhood? Again, providing raw data would help readers tap into the visualization in depth!
+
+#Do you think it would be possible to divide the map into different facets, showing each of the prominent neighborhoods in NYC (e.g. Manhattan, Staten Island, Queens)? Sorry if this feels like asking a bit too much...
+
+
 ```
 
 ```{r trunk diameter, warning=FALSE, message=FALSE}
@@ -98,15 +107,23 @@ tree_damage$problem_type <- recode(tree_damage$problem_type,
                                    root_other = "Other Root Problems")
 
 tree_damage %>%
+  mutate(problem_type = fct_reorder(problem_type, average_dbh))  %>% 
   ggplot(aes(x = problem_type, y = average_dbh)) +
   geom_bar(stat = "identity", aes(fill = problem_type)) +
+  coord_flip()
   labs(title = "Tree Diameter by Problem Type",
        x = "Problem Type",
        y = "Average Tree Diameter") +
   theme(legend.position = "none") +
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
+  theme(axis.text.x = element_text(angle = 60, hjust=1)) + 
+  theme_minimal()
 
 
+#I'm personally a big fan of putting numerical values on x axis and categorical values on y axis. I also suggest using coord_flip() like we used for Lab 1?
+
+#I feel that there is currently no particular order problem types are arranged. What about arranging them in descending order?
+
+#Perhaps using a different color palette would be nice? Something that represents forests, trees, and etc. Try "BottleRocket1" palette from wesanderson package!
 ```
 
 ```{r species type, warning=FALSE, message=FALSE}
@@ -132,6 +149,9 @@ species_plot <- species_plot +
 
 animate(species_plot,fps = 1)
 
+
+
+#For some reason gganimate() did not work correctly on my computer... I think it's on my end because other reviewers didn't seem to have a problem. I'm so sorry I couldn't five you meaningful feedbacl on this!
 
 
 ```
