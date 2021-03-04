@@ -151,7 +151,7 @@ animate(species_plot,fps = 1)
 
 
 
-#For some reason gganimate() did not work correctly on my computer... I think it's on my end because other reviewers didn't seem to have a problem. I'm so sorry I couldn't five you meaningful feedbacl on this!
+#For some reason gganimate() did not work correctly on my computer... I think it's on my end because other reviewers didn't seem to have a problem. I'm so sorry I couldn't five you meaningful feedback on this!
 
 
 ```
